@@ -1,0 +1,11 @@
+Source: mgit-monitoring-plugins
+Maintainer: Christoph Hack <chack@mgit.at>
+Build-Depends: debhelper (>= 9.0.0)
+Standards-Version: 3.9.6
+Section: admin
+
+Package: mgit-monitoring-plugins
+Priority: extra
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, check-mk-agent
+Description: Useful monitoring plugins by mgIT.

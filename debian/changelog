@@ -1,0 +1,5 @@
+mgit-monitoring-plugins (0.1) stable; urgency=medium
+
+  * initial release with wordpress check
+
+ -- Christoph Hack <chack@mgit.at>  Wed, 16 Mar 2016 16:22:00 +0100
