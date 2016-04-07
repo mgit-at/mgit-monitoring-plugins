@@ -4,6 +4,11 @@
 // Author: Christoph Hack <chack@mgit.at>
 // (c) 2016 by mgIT
 
+const NAGIOS_OK = 0;
+const NAGIOS_WARNING = 1;
+const NAGIOS_CRITICAL = 2;
+const NAGIOS_UNKNOWN = 3;
+
 if($argc != 2) {
 	print "usage: check_wordpress_version.php <path to wp installation>\n";
 	exit(1);
@@ -27,7 +32,6 @@ $plugins = get_site_transient('update_plugins');
 if (isset ($core->updates) && version_compare($core->updates[0]->current, $core->version_checked) > 0) {
 	$core_updates = 1;
 }
-
 foreach($plugins->response as $plgupd) {
 	$plugin_updates = 1;
 }
@@ -44,14 +48,11 @@ if($plugin_updates) {
 	$text .= "; plugins ok";
 }
 
-if($core_updates || $plugin_updates) {
-	print("CRITICAL - " . $text."\n");
-	exit(2);
-} else {
-	print("OK - " . $text."\n");
-	exit(0);
+print($text."\n");
+if($core_updates) {
+	exit(NAGIOS_CRITICAL);
+} else if ($plugin_updates) {
+	exit(NAGIOS_WARNING);
 }
-
-print("CRITICAL - Error in check_wp_versions.php");
-exit(2);
+exit(NAGIOS_OK);
 ?>
